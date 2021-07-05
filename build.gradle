@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+description = 'Server for multiple DOIP instances.'
+    group = 'edu.kit.doip.server'
+
+mainClassName = 'edu.kit.turntable.doip.server.Turntable'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // DOIP SDK
+    implementation         'net.dona.doip:doip-sdk:2.1.0'
+    // Logging
+    implementation         'ch.qos.logback:logback-classic:1.2.3'
+    // Only for tests
+    testImplementation     'junit:junit:4.13'
+}
