@@ -1,0 +1,10 @@
+[book]
+authors = ["Volker Hartmann", "Benedikt Heinrichs"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Turntable for Metadata Repositories"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
