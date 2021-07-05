@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="doip/introduction.html"><strong aria-hidden="true">1.</strong> DOIP</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -173,6 +173,25 @@
 It specifies one additional operation due to validate metadata documents.</p>
 <h2><a class="header" href="#specification" id="specification">Specification</a></h2>
 <p>The DataCite format (JSON Schema) is used for the metadata. </p>
+<h2><a class="header" href="#authentication" id="authentication">Authentication</a></h2>
+<p>Creating/Accessing digital objects may be restricted to authorized users only.
+For authentication and authorization JWT is supported right now. </p>
+<h2><a class="header" href="#create-a-schemaapplication-profile" id="create-a-schemaapplication-profile">Create a Schema/Application Profile</a></h2>
+<p>For creating a schema/AP two elements are needed:</p>
+<ol>
+<li>Serialization of metadata (DataCite (JSON))</li>
+<li>Serialization of schema/AP</li>
+</ol>
+<h3><a class="header" href="#metadata" id="metadata">Metadata</a></h3>
+<p>The metadata must contain the following fields:</p>
+<h4><a class="header" href="#formats" id="formats">formats</a></h4>
+<p>Defines the format of the schema</p>
+<ul>
+<li>application/xml -&gt; XSD</li>
+<li>application/json -&gt; JSON Schema</li>
+<li>application/json+ld -&gt; Application Profile</li>
+</ul>
+<p>{{#include createMetadata.md }}</p>
 <h2><a class="header" href="#links" id="links">Links</a></h2>
 <ul>
 <li><a href="https://schema.datacite.org/">DataCite (XML)</a></li>
