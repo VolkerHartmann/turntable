@@ -5,4 +5,4 @@ The interface implements the Digital Object Identifier Protocol ([DOIP](https://
 It specifies one additional operation due to validate metadata documents.
 
 ## Specification
-The DataCite format (JSON Schema) is used for the metadata. 
+The DataCite Schema (JSON Schema) is used for the metadata. 

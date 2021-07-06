@@ -2,7 +2,7 @@
 
 While creating a schema/AP the DO has to contain
 two elements:
-1. Serialization of metadata ([DataCite Schema(JSON)](../datacite/schema.md))
+1. Serialization of metadata ([DataCite (JSON)](../datacite/schema.md))
    - id = datacite
    - type = application/json   
 2. Serialization of schema/AP
@@ -10,14 +10,7 @@ two elements:
    - type = application/ld+json | application/json | application/xml
 
 ### Metadata
-The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:
-- titles
-- publisher
-- formats
-
-Some fields are filled by server. See also [here](../datacite/datacite.md#metadata-for-creating-a-schema-document--application-profile) 
-for further information.
- 
+The dataCite metadata must contain the following fields:
 #### formats
 Defines the format of the schema
   - application/ls+json -> Application Profile
