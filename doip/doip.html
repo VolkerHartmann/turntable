@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html" class="active"><strong aria-hidden="true">1.</strong> DOIP</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html" class="active"><strong aria-hidden="true">1.</strong> DOIP</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -168,30 +168,99 @@
 <p>The interface implements the Digital Object Identifier Protocol (<a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">DOIP</a>).
 It specifies one additional operation due to validate metadata documents.</p>
 <h2><a class="header" href="#specification" id="specification">Specification</a></h2>
-<p>The DataCite format (JSON Schema) is used for the metadata. </p>
+<p>The DataCite Schema (JSON Schema) is used for the metadata. </p>
 <h2><a class="header" href="#authentication" id="authentication">Authentication</a></h2>
 <p>Creating/Accessing digital objects may be restricted to authorized users only.
 For authentication and authorization JWT is supported right now. </p>
 <h2><a class="header" href="#create-a-schemaapplication-profile" id="create-a-schemaapplication-profile">Create a Schema/Application Profile</a></h2>
-<p>For creating a schema/AP two elements are needed:</p>
+<p>While creating a schema/AP the DO has to contain
+two elements:</p>
 <ol>
-<li>Serialization of metadata (DataCite (JSON))</li>
-<li>Serialization of schema/AP</li>
+<li>Serialization of metadata (<a href="../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of schema/AP
+<ul>
+<li>id = application_profile | schema</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
 </ol>
 <h3><a class="header" href="#metadata" id="metadata">Metadata</a></h3>
-<p>The metadata must contain the following fields:</p>
+<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
+for further information.</p>
 <h4><a class="header" href="#formats" id="formats">formats</a></h4>
 <p>Defines the format of the schema</p>
 <ul>
-<li>application/xml -&gt; XSD</li>
-<li>application/json -&gt; JSON Schema</li>
-<li>application/json+ld -&gt; Application Profile</li>
+<li>application/ls+json -&gt; Application Profile</li>
+<li>application/json    -&gt; JSON Schema</li>
+<li>application/xml     -&gt; XSD</li>
 </ul>
-<p>{{#include createMetadata.md }}</p>
+<h2><a class="header" href="#create-a-metadata-document" id="create-a-metadata-document">Create a Metadata Document</a></h2>
+<p>While creating a metadata document the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of metadata document
+<ul>
+<li>id = metadata</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h3><a class="header" href="#metadata-1" id="metadata-1">Metadata</a></h3>
+<p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+<li>relatedIdentifiers
+<ul>
+<li>isDescribedBy</li>
+<li>isMetadataFor</li>
+</ul>
+</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
+for further information.</p>
+<h4><a class="header" href="#formats-1" id="formats-1">formats</a></h4>
+<p>Defines the format of the metadata document</p>
+<ul>
+<li>application/ls+json -&gt; JSON LD </li>
+<li>application/json    -&gt; JSON</li>
+<li>application/xml     -&gt; XML</li>
+</ul>
+<h4><a class="header" href="#relatedidentifiers" id="relatedidentifiers">relatedIdentifiers</a></h4>
+<p>Identifier for </p>
+<ul>
+<li>Schema Document -&gt; type: isDescribedBy</li>
+<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
+</ul>
+<p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
+<ul>
+<li>DOI</li>
+<li>Handle</li>
+<li>PURL</li>
+<li>URL</li>
+</ul>
 <h2><a class="header" href="#links" id="links">Links</a></h2>
 <ul>
-<li><a href="https://schema.datacite.org/">DataCite (XML)</a></li>
-<li><a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite (JSON)</a> </li>
+<li><a href="https://schema.datacite.org/">DataCite Schema (XML)</a></li>
+<li><a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite Schema (JSON)</a> </li>
 </ul>
 
                     </main>
@@ -204,6 +273,10 @@ For authentication and authorization JWT is supported right now. </p>
                             </a>
                         
 
+                        
+                            <a rel="next" href="../datacite/datacite.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -218,6 +291,10 @@ For authentication and authorization JWT is supported right now. </p>
                     </a>
                 
 
+                
+                    <a rel="next" href="../datacite/datacite.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 

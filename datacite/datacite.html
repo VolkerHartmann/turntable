@@ -3,9 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Turntable for Metadata Repositories</title>
-        
-        <meta name="robots" content="noindex" />
+        <title>DataCite - Turntable for Metadata Repositories</title>
         
         
 
@@ -20,28 +18,28 @@
         <meta name="theme-color" content="#ffffff" />
 
         
-        <link rel="icon" href="favicon.svg">
+        <link rel="icon" href="../favicon.svg">
         
         
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="../favicon.png">
         
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
         
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="stylesheet" href="../css/print.css" media="print">
         
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
         
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -51,7 +49,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
         </script>
 
@@ -97,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../datacite/datacite.html" class="active"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -133,7 +131,7 @@
 
                     <div class="right-buttons">
                         
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
@@ -165,113 +163,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>Documentation and Specification of Turntable for Metadata Repositories</p>
-<p>The turntable acts as a facade for (multiple) (metadata) repositories.</p>
-<h1><a class="header" href="#specification-of-the-interface" id="specification-of-the-interface">Specification of the Interface</a></h1>
+                        <h1><a class="header" href="#datacite-schema" id="datacite-schema">DataCite Schema</a></h1>
 <h2><a class="header" href="#forword" id="forword">Forword</a></h2>
-<p>The interface implements the Digital Object Identifier Protocol (<a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">DOIP</a>).
-It specifies one additional operation due to validate metadata documents.</p>
-<h2><a class="header" href="#specification" id="specification">Specification</a></h2>
-<p>The DataCite Schema (JSON Schema) is used for the metadata. </p>
-<h2><a class="header" href="#authentication" id="authentication">Authentication</a></h2>
-<p>Creating/Accessing digital objects may be restricted to authorized users only.
-For authentication and authorization JWT is supported right now. </p>
-<h2><a class="header" href="#create-a-schemaapplication-profile" id="create-a-schemaapplication-profile">Create a Schema/Application Profile</a></h2>
-<p>While creating a schema/AP the DO has to contain
-two elements:</p>
-<ol>
-<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
-<ul>
-<li>id = datacite</li>
-<li>type = application/json</li>
-</ul>
-</li>
-<li>Serialization of schema/AP
-<ul>
-<li>id = application_profile | schema</li>
-<li>type = application/ld+json | application/json | application/xml</li>
-</ul>
-</li>
-</ol>
-<h3><a class="header" href="#metadata" id="metadata">Metadata</a></h3>
-<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
-<ul>
-<li>titles</li>
-<li>publisher</li>
-<li>formats</li>
-</ul>
-<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
-for further information.</p>
-<h4><a class="header" href="#formats" id="formats">formats</a></h4>
-<p>Defines the format of the schema</p>
-<ul>
-<li>application/ls+json -&gt; Application Profile</li>
-<li>application/json    -&gt; JSON Schema</li>
-<li>application/xml     -&gt; XSD</li>
-</ul>
-<h2><a class="header" href="#create-a-metadata-document" id="create-a-metadata-document">Create a Metadata Document</a></h2>
-<p>While creating a metadata document the DO has to contain
-two elements:</p>
-<ol>
-<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
-<ul>
-<li>id = datacite</li>
-<li>type = application/json</li>
-</ul>
-</li>
-<li>Serialization of metadata document
-<ul>
-<li>id = metadata</li>
-<li>type = application/ld+json | application/json | application/xml</li>
-</ul>
-</li>
-</ol>
-<h3><a class="header" href="#metadata-1" id="metadata-1">Metadata</a></h3>
-<p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
-<ul>
-<li>titles</li>
-<li>publisher</li>
-<li>formats</li>
-<li>relatedIdentifiers
-<ul>
-<li>isDescribedBy</li>
-<li>isMetadataFor</li>
-</ul>
-</li>
-</ul>
-<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
-for further information.</p>
-<h4><a class="header" href="#formats-1" id="formats-1">formats</a></h4>
-<p>Defines the format of the metadata document</p>
-<ul>
-<li>application/ls+json -&gt; JSON LD </li>
-<li>application/json    -&gt; JSON</li>
-<li>application/xml     -&gt; XML</li>
-</ul>
-<h4><a class="header" href="#relatedidentifiers" id="relatedidentifiers">relatedIdentifiers</a></h4>
-<p>Identifier for </p>
-<ul>
-<li>Schema Document -&gt; type: isDescribedBy</li>
-<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
-</ul>
-<p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
-<ul>
-<li>DOI</li>
-<li>Handle</li>
-<li>PURL</li>
-<li>URL</li>
-</ul>
-<h2><a class="header" href="#links" id="links">Links</a></h2>
-<ul>
-<li><a href="https://schema.datacite.org/">DataCite Schema (XML)</a></li>
-<li><a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite Schema (JSON)</a> </li>
-</ul>
-<h1><a class="header" href="#datacite-schema" id="datacite-schema">DataCite Schema</a></h1>
-<h2><a class="header" href="#forword-1" id="forword-1">Forword</a></h2>
 <p>The DataCite Metadata Schema defines a list of core metadata properties to
 enable an accurate and consistent identification of a resource for citation 
 and retrieval purposes.(schema.datacite.org)</p>
-<h2><a class="header" href="#specification-1" id="specification-1">Specification</a></h2>
+<h2><a class="header" href="#specification" id="specification">Specification</a></h2>
 <p>The <a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite JSON schema</a> is used.
 See examples below for minimal DataCite json documents.</p>
 <h2><a class="header" href="#metadata-for-creating-a-schema-document--application-profile" id="metadata-for-creating-a-schema-document--application-profile">Metadata for creating a Schema Document / Application Profile</a></h2>
@@ -384,7 +281,7 @@ See examples below for minimal DataCite json documents.</p>
 </code></pre>
 <p>{{#include createSchema.md }}
 {{#include createMetadataDocument.md }}</p>
-<h2><a class="header" href="#links-1" id="links-1">Links</a></h2>
+<h2><a class="header" href="#links" id="links">Links</a></h2>
 <ul>
 <li><a href="https://schema.datacite.org/">DataCite Schema (XML)</a></li>
 <li><a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite Schema (JSON)</a> </li>
@@ -395,6 +292,10 @@ See examples below for minimal DataCite json documents.</p>
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="../doip/doip.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
                         
 
@@ -404,6 +305,10 @@ See examples below for minimal DataCite json documents.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../doip/doip.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
 
                 
@@ -426,26 +331,18 @@ See examples below for minimal DataCite json documents.</p>
         
 
         
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         
 
-        
-        
-        <script type="text/javascript">
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
-        
         
 
     </body>
