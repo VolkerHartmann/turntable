@@ -1,4 +1,4 @@
-## Create a Metadata Document
+#### Create a Metadata Document
 
 While creating a metadata document the DO has to contain
 two elements:
@@ -9,7 +9,7 @@ two elements:
    - id = metadata
    - type = application/ld+json | application/json | application/xml
 
-### Metadata
+##### Metadata
 The dataCite metadata for creating a DO of a metadata document must contain the following fields:
 - titles
 - publisher
@@ -21,13 +21,13 @@ The dataCite metadata for creating a DO of a metadata document must contain the 
 Some fields are filled by server. See also [here](../datacite/datacite.md#metadata-for-creating-a-metadata-document) 
 for further information.
  
-#### formats
+###### formats
 Defines the format of the metadata document
-  - application/ls+json -> JSON LD 
+  - application/ld+json -> JSON LD 
   - application/json    -> JSON
   - application/xml     -> XML
 
-#### relatedIdentifiers
+###### relatedIdentifiers
 Identifier for 
 - Schema Document -> type: isDescribedBy
 - Digital Object(DO) -> type: isMetadataOf
