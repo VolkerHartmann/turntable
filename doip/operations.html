@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>DOIP - Turntable for Metadata Repositories</title>
+        <title>Operations - Turntable for Metadata Repositories</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html" class="active"><strong aria-hidden="true">1.</strong> DOIP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/operations.html"><strong aria-hidden="true">1.1.</strong> Operations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/basicOperations.html"><strong aria-hidden="true">1.1.1.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="../doip/extendedOperations.html"><strong aria-hidden="true">1.1.2.</strong> Extended Operations</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/operations.html" class="active"><strong aria-hidden="true">1.1.</strong> Operations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/basicOperations.html"><strong aria-hidden="true">1.1.1.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="../doip/extendedOperations.html"><strong aria-hidden="true">1.1.2.</strong> Extended Operations</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,16 +163,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#specification-of-the-interface" id="specification-of-the-interface">Specification of the Interface</a></h1>
-<h2><a class="header" href="#forword" id="forword">Forword</a></h2>
-<p>The interface implements the Digital Object Identifier Protocol (<a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">DOIP</a>).
-It specifies one additional operation due to validate metadata documents.</p>
-<h2><a class="header" href="#specification" id="specification">Specification</a></h2>
-<p>The DataCite Schema (JSON Schema) is used for the metadata. </p>
-<h2><a class="header" href="#authentication" id="authentication">Authentication</a></h2>
-<p>Creating/Accessing digital objects may be restricted to authorized users only.
-For authentication and authorization JWT is supported right now. </p>
-<h1><a class="header" href="#operations" id="operations">Operations</a></h1>
+                        <h1><a class="header" href="#operations" id="operations">Operations</a></h1>
 <h2><a class="header" href="#basic-operations" id="basic-operations">Basic Operations</a></h2>
 <p>All basic operations are specified in the specification published by DONA.
 If there are further requirements they will be mentioned here. Otherwise
@@ -310,109 +301,19 @@ Attributes has to contain one property:</p>
 <li>0.DOIP/Status.001 - Validation was successful</li>
 <li>0.DOIP/Status.xxx - An error occurred. </li>
 </ul>
-<h4><a class="header" href="#create-a-schemaapplication-profile-1" id="create-a-schemaapplication-profile-1">Create a Schema/Application Profile</a></h4>
-<p>While creating a schema/AP the DO has to contain
-two elements:</p>
-<ol>
-<li>Serialization of metadata (<a href="../datacite/schema.html">DataCite Schema(JSON)</a>)
-<ul>
-<li>id = datacite</li>
-<li>type = application/json</li>
-</ul>
-</li>
-<li>Serialization of schema/AP
-<ul>
-<li>id = application_profile | schema</li>
-<li>type = application/ld+json | application/json | application/xml</li>
-</ul>
-</li>
-</ol>
-<h5><a class="header" href="#metadata-2" id="metadata-2">Metadata</a></h5>
-<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
-<ul>
-<li>titles</li>
-<li>publisher</li>
-<li>formats</li>
-</ul>
-<p>Some fields are filled by server. See also <a href="../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
-for further information.</p>
-<h6><a class="header" href="#formats-2" id="formats-2">formats</a></h6>
-<p>Defines the format of the schema</p>
-<ul>
-<li>application/ld+json -&gt; Application Profile</li>
-<li>application/json    -&gt; JSON Schema</li>
-<li>application/xml     -&gt; XSD</li>
-</ul>
-<h4><a class="header" href="#create-a-metadata-document-1" id="create-a-metadata-document-1">Create a Metadata Document</a></h4>
-<p>While creating a metadata document the DO has to contain
-two elements:</p>
-<ol>
-<li>Serialization of metadata (<a href="../datacite/schema.html">DataCite Schema(JSON)</a>)
-<ul>
-<li>id = datacite</li>
-<li>type = application/json</li>
-</ul>
-</li>
-<li>Serialization of metadata document
-<ul>
-<li>id = metadata</li>
-<li>type = application/ld+json | application/json | application/xml</li>
-</ul>
-</li>
-</ol>
-<h5><a class="header" href="#metadata-3" id="metadata-3">Metadata</a></h5>
-<p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
-<ul>
-<li>titles</li>
-<li>publisher</li>
-<li>formats</li>
-<li>relatedIdentifiers
-<ul>
-<li>isDescribedBy</li>
-<li>isMetadataFor</li>
-</ul>
-</li>
-</ul>
-<p>Some fields are filled by server. See also <a href="../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
-for further information.</p>
-<h6><a class="header" href="#formats-3" id="formats-3">formats</a></h6>
-<p>Defines the format of the metadata document</p>
-<ul>
-<li>application/ld+json -&gt; JSON LD </li>
-<li>application/json    -&gt; JSON</li>
-<li>application/xml     -&gt; XML</li>
-</ul>
-<h6><a class="header" href="#relatedidentifiers-1" id="relatedidentifiers-1">relatedIdentifiers</a></h6>
-<p>Identifier for </p>
-<ul>
-<li>Schema Document -&gt; type: isDescribedBy</li>
-<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
-</ul>
-<p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
-<ul>
-<li>DOI</li>
-<li>Handle</li>
-<li>PURL</li>
-<li>URL</li>
-</ul>
-<h2><a class="header" href="#links" id="links">Links</a></h2>
-<ul>
-<li><a href="https://schema.datacite.org/">DataCite Schema (XML)</a></li>
-<li><a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite Schema (JSON)</a> </li>
-</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../about.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../doip/doip.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../doip/operations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../doip/basicOperations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -424,13 +325,13 @@ for further information.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../about.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../doip/doip.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../doip/operations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../doip/basicOperations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

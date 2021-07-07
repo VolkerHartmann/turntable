@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="doip/operations.html"><strong aria-hidden="true">1.1.</strong> Operations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="doip/basicOperations.html"><strong aria-hidden="true">1.1.1.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="doip/extendedOperations.html"><strong aria-hidden="true">1.1.2.</strong> Extended Operations</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -176,40 +176,22 @@ It specifies one additional operation due to validate metadata documents.</p>
 <h2><a class="header" href="#authentication" id="authentication">Authentication</a></h2>
 <p>Creating/Accessing digital objects may be restricted to authorized users only.
 For authentication and authorization JWT is supported right now. </p>
-<h2><a class="header" href="#create-a-schemaapplication-profile" id="create-a-schemaapplication-profile">Create a Schema/Application Profile</a></h2>
-<p>While creating a schema/AP the DO has to contain
-two elements:</p>
+<h1><a class="header" href="#operations" id="operations">Operations</a></h1>
+<h2><a class="header" href="#basic-operations" id="basic-operations">Basic Operations</a></h2>
+<p>All basic operations are specified in the specification published by DONA.
+If there are further requirements they will be mentioned here. Otherwise
+there are no further requirements.</p>
+<h3><a class="header" href="#0doipophello" id="0doipophello">0.DOIP/Op.Hello</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopcreate" id="0doipopcreate">0.DOIP/Op.Create</a></h3>
+<p>The service supports two different types of Digital Objects:</p>
 <ol>
-<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
-<ul>
-<li>id = datacite</li>
-<li>type = application/json</li>
-</ul>
-</li>
-<li>Serialization of schema/AP
-<ul>
-<li>id = application_profile | schema</li>
-<li>type = application/ld+json | application/json | application/xml</li>
-</ul>
-</li>
+<li>Metadata Documents (JSON, JSON-LD, XML)</li>
+<li>Metadata Schema Documents (JSON-LD, JSON Schema, XSD)</li>
 </ol>
-<h3><a class="header" href="#metadata" id="metadata">Metadata</a></h3>
-<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
-<ul>
-<li>titles</li>
-<li>publisher</li>
-<li>formats</li>
-</ul>
-<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
-for further information.</p>
-<h4><a class="header" href="#formats" id="formats">formats</a></h4>
-<p>Defines the format of the schema</p>
-<ul>
-<li>application/ls+json -&gt; Application Profile</li>
-<li>application/json    -&gt; JSON Schema</li>
-<li>application/xml     -&gt; XSD</li>
-</ul>
-<h2><a class="header" href="#create-a-metadata-document" id="create-a-metadata-document">Create a Metadata Document</a></h2>
+<h4><a class="header" href="#create-a-metadata-document" id="create-a-metadata-document">Create a Metadata Document</a></h4>
 <p>While creating a metadata document the DO has to contain
 two elements:</p>
 <ol>
@@ -226,7 +208,7 @@ two elements:</p>
 </ul>
 </li>
 </ol>
-<h3><a class="header" href="#metadata-1" id="metadata-1">Metadata</a></h3>
+<h5><a class="header" href="#metadata" id="metadata">Metadata</a></h5>
 <p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
 <ul>
 <li>titles</li>
@@ -241,14 +223,170 @@ two elements:</p>
 </ul>
 <p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
 for further information.</p>
-<h4><a class="header" href="#formats-1" id="formats-1">formats</a></h4>
+<h6><a class="header" href="#formats" id="formats">formats</a></h6>
 <p>Defines the format of the metadata document</p>
 <ul>
-<li>application/ls+json -&gt; JSON LD </li>
+<li>application/ld+json -&gt; JSON LD </li>
 <li>application/json    -&gt; JSON</li>
 <li>application/xml     -&gt; XML</li>
 </ul>
-<h4><a class="header" href="#relatedidentifiers" id="relatedidentifiers">relatedIdentifiers</a></h4>
+<h6><a class="header" href="#relatedidentifiers" id="relatedidentifiers">relatedIdentifiers</a></h6>
+<p>Identifier for </p>
+<ul>
+<li>Schema Document -&gt; type: isDescribedBy</li>
+<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
+</ul>
+<p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
+<ul>
+<li>DOI</li>
+<li>Handle</li>
+<li>PURL</li>
+<li>URL</li>
+</ul>
+<h4><a class="header" href="#create-a-schemaapplication-profile" id="create-a-schemaapplication-profile">Create a Schema/Application Profile</a></h4>
+<p>While creating a schema/AP the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of schema/AP
+<ul>
+<li>id = application_profile | schema</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-1" id="metadata-1">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-1" id="formats-1">formats</a></h6>
+<p>Defines the format of the schema</p>
+<ul>
+<li>application/ld+json -&gt; Application Profile</li>
+<li>application/json    -&gt; JSON Schema</li>
+<li>application/xml     -&gt; XSD</li>
+</ul>
+<h3><a class="header" href="#0doipopretrieve" id="0doipopretrieve">0.DOIP/Op.Retrieve</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopupdate" id="0doipopupdate">0.DOIP/Op.Update</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopdelete" id="0doipopdelete">0.DOIP/Op.Delete</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopsearch" id="0doipopsearch">0.DOIP/Op.Search</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a>
+Search Queries depend on underlying repository.</li>
+</ul>
+<h3><a class="header" href="#0doipoplistoperations" id="0doipoplistoperations">0.DOIP/Op.ListOperations</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h2><a class="header" href="#extended-operations" id="extended-operations">Extended Operations</a></h2>
+<h3><a class="header" href="#0doipopvalidation" id="0doipopvalidation">0.DOIP/Op.Validation</a></h3>
+<p>This operation validates a metadata document with given schema.
+Attributes has to contain one property:</p>
+<ol>
+<li>schema/AP - Identifier of schema/AP</li>
+</ol>
+<p>DO has to contain one element with the serialization of the metadata document:</p>
+<ul>
+<li>id = metadata</li>
+<li>type= application/ld+json | application/json | application/xml</li>
+</ul>
+<p><em><strong>Return</strong></em></p>
+<ul>
+<li>0.DOIP/Status.001 - Validation was successful</li>
+<li>0.DOIP/Status.xxx - An error occurred. </li>
+</ul>
+<h4><a class="header" href="#create-a-schemaapplication-profile-1" id="create-a-schemaapplication-profile-1">Create a Schema/Application Profile</a></h4>
+<p>While creating a schema/AP the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of schema/AP
+<ul>
+<li>id = application_profile | schema</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-2" id="metadata-2">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-2" id="formats-2">formats</a></h6>
+<p>Defines the format of the schema</p>
+<ul>
+<li>application/ld+json -&gt; Application Profile</li>
+<li>application/json    -&gt; JSON Schema</li>
+<li>application/xml     -&gt; XSD</li>
+</ul>
+<h4><a class="header" href="#create-a-metadata-document-1" id="create-a-metadata-document-1">Create a Metadata Document</a></h4>
+<p>While creating a metadata document the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of metadata document
+<ul>
+<li>id = metadata</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-3" id="metadata-3">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+<li>relatedIdentifiers
+<ul>
+<li>isDescribedBy</li>
+<li>isMetadataFor</li>
+</ul>
+</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-3" id="formats-3">formats</a></h6>
+<p>Defines the format of the metadata document</p>
+<ul>
+<li>application/ld+json -&gt; JSON LD </li>
+<li>application/json    -&gt; JSON</li>
+<li>application/xml     -&gt; XML</li>
+</ul>
+<h6><a class="header" href="#relatedidentifiers-1" id="relatedidentifiers-1">relatedIdentifiers</a></h6>
 <p>Identifier for </p>
 <ul>
 <li>Schema Document -&gt; type: isDescribedBy</li>
@@ -265,6 +403,281 @@ for further information.</p>
 <ul>
 <li><a href="https://schema.datacite.org/">DataCite Schema (XML)</a></li>
 <li><a href="https://github.com/datacite/schema/tree/master/source/json/kernel-4.3">DataCite Schema (JSON)</a> </li>
+</ul>
+<h1><a class="header" href="#operations-1" id="operations-1">Operations</a></h1>
+<h2><a class="header" href="#basic-operations-1" id="basic-operations-1">Basic Operations</a></h2>
+<p>All basic operations are specified in the specification published by DONA.
+If there are further requirements they will be mentioned here. Otherwise
+there are no further requirements.</p>
+<h3><a class="header" href="#0doipophello-1" id="0doipophello-1">0.DOIP/Op.Hello</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopcreate-1" id="0doipopcreate-1">0.DOIP/Op.Create</a></h3>
+<p>The service supports two different types of Digital Objects:</p>
+<ol>
+<li>Metadata Documents (JSON, JSON-LD, XML)</li>
+<li>Metadata Schema Documents (JSON-LD, JSON Schema, XSD)</li>
+</ol>
+<h4><a class="header" href="#create-a-metadata-document-2" id="create-a-metadata-document-2">Create a Metadata Document</a></h4>
+<p>While creating a metadata document the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of metadata document
+<ul>
+<li>id = metadata</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-4" id="metadata-4">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+<li>relatedIdentifiers
+<ul>
+<li>isDescribedBy</li>
+<li>isMetadataFor</li>
+</ul>
+</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-4" id="formats-4">formats</a></h6>
+<p>Defines the format of the metadata document</p>
+<ul>
+<li>application/ld+json -&gt; JSON LD </li>
+<li>application/json    -&gt; JSON</li>
+<li>application/xml     -&gt; XML</li>
+</ul>
+<h6><a class="header" href="#relatedidentifiers-2" id="relatedidentifiers-2">relatedIdentifiers</a></h6>
+<p>Identifier for </p>
+<ul>
+<li>Schema Document -&gt; type: isDescribedBy</li>
+<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
+</ul>
+<p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
+<ul>
+<li>DOI</li>
+<li>Handle</li>
+<li>PURL</li>
+<li>URL</li>
+</ul>
+<h4><a class="header" href="#create-a-schemaapplication-profile-2" id="create-a-schemaapplication-profile-2">Create a Schema/Application Profile</a></h4>
+<p>While creating a schema/AP the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of schema/AP
+<ul>
+<li>id = application_profile | schema</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-5" id="metadata-5">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-5" id="formats-5">formats</a></h6>
+<p>Defines the format of the schema</p>
+<ul>
+<li>application/ld+json -&gt; Application Profile</li>
+<li>application/json    -&gt; JSON Schema</li>
+<li>application/xml     -&gt; XSD</li>
+</ul>
+<h3><a class="header" href="#0doipopretrieve-1" id="0doipopretrieve-1">0.DOIP/Op.Retrieve</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopupdate-1" id="0doipopupdate-1">0.DOIP/Op.Update</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopdelete-1" id="0doipopdelete-1">0.DOIP/Op.Delete</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopsearch-1" id="0doipopsearch-1">0.DOIP/Op.Search</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a>
+Search Queries depend on underlying repository.</li>
+</ul>
+<h3><a class="header" href="#0doipoplistoperations-1" id="0doipoplistoperations-1">0.DOIP/Op.ListOperations</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h2><a class="header" href="#extended-operations-1" id="extended-operations-1">Extended Operations</a></h2>
+<h3><a class="header" href="#0doipopvalidation-1" id="0doipopvalidation-1">0.DOIP/Op.Validation</a></h3>
+<p>This operation validates a metadata document with given schema.
+Attributes has to contain one property:</p>
+<ol>
+<li>schema/AP - Identifier of schema/AP</li>
+</ol>
+<p>DO has to contain one element with the serialization of the metadata document:</p>
+<ul>
+<li>id = metadata</li>
+<li>type= application/ld+json | application/json | application/xml</li>
+</ul>
+<p><em><strong>Return</strong></em></p>
+<ul>
+<li>0.DOIP/Status.001 - Validation was successful</li>
+<li>0.DOIP/Status.xxx - An error occurred. </li>
+</ul>
+<h2><a class="header" href="#basic-operations-2" id="basic-operations-2">Basic Operations</a></h2>
+<p>All basic operations are specified in the specification published by DONA.
+If there are further requirements they will be mentioned here. Otherwise
+there are no further requirements.</p>
+<h3><a class="header" href="#0doipophello-2" id="0doipophello-2">0.DOIP/Op.Hello</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopcreate-2" id="0doipopcreate-2">0.DOIP/Op.Create</a></h3>
+<p>The service supports two different types of Digital Objects:</p>
+<ol>
+<li>Metadata Documents (JSON, JSON-LD, XML)</li>
+<li>Metadata Schema Documents (JSON-LD, JSON Schema, XSD)</li>
+</ol>
+<h4><a class="header" href="#create-a-metadata-document-3" id="create-a-metadata-document-3">Create a Metadata Document</a></h4>
+<p>While creating a metadata document the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of metadata document
+<ul>
+<li>id = metadata</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-6" id="metadata-6">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+<li>relatedIdentifiers
+<ul>
+<li>isDescribedBy</li>
+<li>isMetadataFor</li>
+</ul>
+</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-metadata-document">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-6" id="formats-6">formats</a></h6>
+<p>Defines the format of the metadata document</p>
+<ul>
+<li>application/ld+json -&gt; JSON LD </li>
+<li>application/json    -&gt; JSON</li>
+<li>application/xml     -&gt; XML</li>
+</ul>
+<h6><a class="header" href="#relatedidentifiers-3" id="relatedidentifiers-3">relatedIdentifiers</a></h6>
+<p>Identifier for </p>
+<ul>
+<li>Schema Document -&gt; type: isDescribedBy</li>
+<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
+</ul>
+<p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
+<ul>
+<li>DOI</li>
+<li>Handle</li>
+<li>PURL</li>
+<li>URL</li>
+</ul>
+<h4><a class="header" href="#create-a-schemaapplication-profile-3" id="create-a-schemaapplication-profile-3">Create a Schema/Application Profile</a></h4>
+<p>While creating a schema/AP the DO has to contain
+two elements:</p>
+<ol>
+<li>Serialization of metadata (<a href="doip/../datacite/schema.html">DataCite Schema(JSON)</a>)
+<ul>
+<li>id = datacite</li>
+<li>type = application/json</li>
+</ul>
+</li>
+<li>Serialization of schema/AP
+<ul>
+<li>id = application_profile | schema</li>
+<li>type = application/ld+json | application/json | application/xml</li>
+</ul>
+</li>
+</ol>
+<h5><a class="header" href="#metadata-7" id="metadata-7">Metadata</a></h5>
+<p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
+<ul>
+<li>titles</li>
+<li>publisher</li>
+<li>formats</li>
+</ul>
+<p>Some fields are filled by server. See also <a href="doip/../datacite/datacite.html#metadata-for-creating-a-schema-document--application-profile">here</a> 
+for further information.</p>
+<h6><a class="header" href="#formats-7" id="formats-7">formats</a></h6>
+<p>Defines the format of the schema</p>
+<ul>
+<li>application/ld+json -&gt; Application Profile</li>
+<li>application/json    -&gt; JSON Schema</li>
+<li>application/xml     -&gt; XSD</li>
+</ul>
+<h3><a class="header" href="#0doipopretrieve-2" id="0doipopretrieve-2">0.DOIP/Op.Retrieve</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopupdate-2" id="0doipopupdate-2">0.DOIP/Op.Update</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopdelete-2" id="0doipopdelete-2">0.DOIP/Op.Delete</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h3><a class="header" href="#0doipopsearch-2" id="0doipopsearch-2">0.DOIP/Op.Search</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a>
+Search Queries depend on underlying repository.</li>
+</ul>
+<h3><a class="header" href="#0doipoplistoperations-2" id="0doipoplistoperations-2">0.DOIP/Op.ListOperations</a></h3>
+<ul>
+<li><a href="https://www.dona.net/sites/default/files/2018-11/DOIPv2Spec_1.pdf">see specification</a></li>
+</ul>
+<h2><a class="header" href="#extended-operations-2" id="extended-operations-2">Extended Operations</a></h2>
+<h3><a class="header" href="#0doipopvalidation-2" id="0doipopvalidation-2">0.DOIP/Op.Validation</a></h3>
+<p>This operation validates a metadata document with given schema.
+Attributes has to contain one property:</p>
+<ol>
+<li>schema/AP - Identifier of schema/AP</li>
+</ol>
+<p>DO has to contain one element with the serialization of the metadata document:</p>
+<ul>
+<li>id = metadata</li>
+<li>type= application/ld+json | application/json | application/xml</li>
+</ul>
+<p><em><strong>Return</strong></em></p>
+<ul>
+<li>0.DOIP/Status.001 - Validation was successful</li>
+<li>0.DOIP/Status.xxx - An error occurred. </li>
 </ul>
 <h1><a class="header" href="#datacite-schema" id="datacite-schema">DataCite Schema</a></h1>
 <h2><a class="header" href="#forword-1" id="forword-1">Forword</a></h2>
@@ -382,8 +795,8 @@ See examples below for minimal DataCite json documents.</p>
 }
 
 </code></pre>
-<p>{{#include createSchema.md }}
-{{#include createMetadataDocument.md }}</p>
+<p>{{#include createMetadataDocument.md }}
+{{#include createSchema.md }}</p>
 <h2><a class="header" href="#links-1" id="links-1">Links</a></h2>
 <ul>
 <li><a href="https://schema.datacite.org/">DataCite Schema (XML)</a></li>
