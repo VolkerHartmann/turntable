@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/operations.html"><strong aria-hidden="true">1.1.</strong> Operations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/basicOperations.html" class="active"><strong aria-hidden="true">1.1.1.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="../doip/extendedOperations.html"><strong aria-hidden="true">1.1.2.</strong> Extended Operations</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../about.html">About</a></li><li class="chapter-item expanded affix "><li class="part-title">Specification of the Interface</li><li class="chapter-item expanded "><a href="../doip/doip.html"><strong aria-hidden="true">1.</strong> DOIP</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/operations.html"><strong aria-hidden="true">1.1.</strong> Operations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../doip/basicOperations.html" class="active"><strong aria-hidden="true">1.1.1.</strong> Basic Operations</a></li><li class="chapter-item expanded "><a href="../doip/extendedOperations.html"><strong aria-hidden="true">1.1.2.</strong> Extended Operations</a></li><li class="spacer"></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Appendix</li><li class="chapter-item expanded "><a href="../datacite/datacite.html"><strong aria-hidden="true">2.</strong> DataCite</a></li><li class="chapter-item expanded "><a href="../links.html"><strong aria-hidden="true">3.</strong> Links</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -181,20 +181,20 @@ there are no further requirements.</p>
 <p>While creating a metadata document the DO has to contain
 two elements:</p>
 <ol>
-<li>Serialization of metadata (<a href="../datacite/schema.html">DataCite Schema(JSON)</a>)
+<li>Serialization of metadata (<a href="../datacite/datacite.html#metadata-of-a-metadata-document">DataCite Schema(JSON)</a>)
 <ul>
-<li>id = datacite</li>
+<li>id = metadata</li>
 <li>type = application/json</li>
 </ul>
 </li>
 <li>Serialization of metadata document
 <ul>
-<li>id = metadata</li>
+<li>id = document</li>
 <li>type = application/ld+json | application/json | application/xml</li>
 </ul>
 </li>
 </ol>
-<h5><a class="header" href="#metadata" id="metadata">Metadata</a></h5>
+<h5><a class="header" href="#datacite-metadata" id="datacite-metadata">(DataCite) Metadata</a></h5>
 <p>The dataCite metadata for creating a DO of a metadata document must contain the following fields:</p>
 <ul>
 <li>titles</li>
@@ -202,8 +202,8 @@ two elements:</p>
 <li>formats</li>
 <li>relatedIdentifiers
 <ul>
-<li>isDescribedBy</li>
-<li>isMetadataFor</li>
+<li>IsDescribedBy</li>
+<li>IsMetadataFor</li>
 </ul>
 </li>
 </ul>
@@ -219,8 +219,8 @@ for further information.</p>
 <h6><a class="header" href="#relatedidentifiers" id="relatedidentifiers">relatedIdentifiers</a></h6>
 <p>Identifier for </p>
 <ul>
-<li>Schema Document -&gt; type: isDescribedBy</li>
-<li>Digital Object(DO) -&gt; type: isMetadataOf</li>
+<li>Schema Document -&gt; type: IsDescribedBy</li>
+<li>Digital Object(DO) -&gt; type: IsMetadataFor</li>
 </ul>
 <p>Many identifiers are supported. Most relevant are (in alphabetical order):</p>
 <ul>
@@ -233,7 +233,7 @@ for further information.</p>
 <p>While creating a schema/AP the DO has to contain
 two elements:</p>
 <ol>
-<li>Serialization of metadata (<a href="../datacite/schema.html">DataCite Schema(JSON)</a>)
+<li>Serialization of metadata (<a href="../datacite/datacite.html#metadata-of-a-schema-document--application-profile">DataCite Schema(JSON)</a>)
 <ul>
 <li>id = datacite</li>
 <li>type = application/json</li>
@@ -246,7 +246,7 @@ two elements:</p>
 </ul>
 </li>
 </ol>
-<h5><a class="header" href="#metadata-1" id="metadata-1">Metadata</a></h5>
+<h5><a class="header" href="#datacite-metadata-1" id="datacite-metadata-1">(DataCite) Metadata</a></h5>
 <p>The dataCite metadata for creating a DO of a schema/application profile must contain the following fields:</p>
 <ul>
 <li>titles</li>
