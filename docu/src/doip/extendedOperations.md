@@ -1,12 +1,12 @@
 ## Extended Operations
 
 ### 0.DOIP/Op.Validation
-This operation validates a metadata document with given schema.
+This operation validates the provided metadata document with a registered schema.
 Attributes has to contain one property:
 1. schema/AP - Identifier of schema/AP
 
 DO has to contain one element with the serialization of the metadata document:
-- id = metadata
+- id = document
 - type= application/ld+json | application/json | application/xml
 
 ***Return***
