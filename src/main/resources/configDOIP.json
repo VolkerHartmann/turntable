@@ -1,0 +1,9 @@
+{
+    "serviceId": "35.TEST/DOIPServer",
+    "serviceName": "Turntable",
+    "serviceDescription": "Generic repository especially for metadata.",
+    "address": "localhost", 
+    "port": 8881, 
+    "authenticationEnabled": true, 
+    "defaultToken": "???"
+}

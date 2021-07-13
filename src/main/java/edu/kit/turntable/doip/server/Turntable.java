@@ -1,10 +1,26 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2021 Karlsruhe Institute of Technology.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package edu.kit.turntable.doip.server;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,9 +57,13 @@ public class Turntable implements DoipProcessor {
     config.listenAddress = args[1];
     config.port = Integer.parseInt(args[2]);
     config.processorClass = Turntable.class.getName();
+    config.processorClass="edu.kit.turntable.doip.server.TurntableDoipProcessor";
+    config.processorConfig = convertFileToJSON("src/main/resources/configDOIP.json");
     DoipServerConfig.TlsConfig tlsConfig = new DoipServerConfig.TlsConfig();
     tlsConfig.id = args[0];
     config.tlsConfig = tlsConfig;
+    TurntableDoipProcessor tdp = new TurntableDoipProcessor();
+    tdp.init(config.processorConfig);
     DoipServer server = new DoipServer(config);
     server.init();
     Runtime.getRuntime().addShutdownHook(new Thread(server::shutdown));
@@ -52,11 +72,16 @@ public class Turntable implements DoipProcessor {
     LOGGER.info("ID: '{}'", tlsConfig.id);
     LOGGER.info("Address: '{}'", config.listenAddress);
     LOGGER.info("Port: '{}'", config.port);
+    LOGGER.debug("TRACE is on");
+    LOGGER.debug("DEBUG is on");
+    LOGGER.info("INFO is on");
+    LOGGER.warn("WARN is on");
+    LOGGER.error("Error is on");
   }
 
   @Override
   public void process(DoipServerRequest req, DoipServerResponse resp) throws IOException {
-    LOGGER.trace("Get any request on port '{}'", port);
+    LOGGER.debug("Get any request on port '{}'", port);
     try {
       resp.commit();
       for (InDoipSegment segment : req.getInput()) {
@@ -78,4 +103,29 @@ public class Turntable implements DoipProcessor {
       throw e.getCause();
     }
   }
+  
+  public static JsonObject convertFileToJSON (String fileName){
+
+        // Read from File to String
+        JsonObject jsonObject = new JsonObject();
+        
+        try {
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(new FileReader(fileName));
+            jsonObject = jsonElement.getAsJsonObject();
+            LOGGER.debug("Hurra!");
+            LOGGER.debug(jsonElement.toString());
+            LOGGER.debug("-------------------------------");
+            LOGGER.debug(jsonObject.toString());
+        } catch (FileNotFoundException e) {
+           LOGGER.error("Reading error", e);
+//        } catch (IOException ioe){
+//          LOGGER.error("Parsing error", ioe);
+        
+        }
+        
+        
+        return jsonObject;
+    }
+
 }
