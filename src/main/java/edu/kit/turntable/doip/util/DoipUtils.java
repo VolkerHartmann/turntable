@@ -42,6 +42,9 @@ public class DoipUtils{
    * Label of the attribute containing datacite (in JSON format) metadata about the DO.
    */
   public static final String ATTR_DATACITE = "datacite";
+  public static final String ID_SCHEMA = "schema";
+  public static final String ID_METADATA = "metadata";
+  public static final String ID_APPLICATION_PROFILE = "application_profile";
   /**
    * Label for the general DO type.
    */

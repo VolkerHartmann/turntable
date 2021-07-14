@@ -19,8 +19,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonWriter;
 import edu.kit.turntable.doip.ExtendedOperations;
 import edu.kit.turntable.doip.server.mockup.MockUpProcessor;
 
@@ -28,20 +26,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.security.PublicKey;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 import net.dona.doip.DoipConstants;
 import net.dona.doip.InDoipMessage;
 import net.dona.doip.InDoipSegment;
-import net.dona.doip.OutDoipMessage;
 import net.dona.doip.client.DigitalObject;
 import net.dona.doip.client.DoipException;
-import net.dona.doip.client.SortField;
 import net.dona.doip.server.DoipProcessor;
 import net.dona.doip.server.DoipServerRequest;
 import net.dona.doip.server.DoipServerResponse;
@@ -229,10 +221,6 @@ public class TurntableDoipProcessor implements DoipProcessor {
   private void create(DoipServerRequest req, DoipServerResponse resp) throws DoipException, IOException {
     LOGGER.debug("Calling create()...");
     // Get Datacite metadata
-    JsonObject attributes = req.getAttributes();
-    if (attributes != null) {
-      LOGGER.debug(attributes.toString());
-    }
     printRequest(req);
     MockUpProcessor.create(req, resp);
     printResponse(resp);
@@ -765,6 +753,8 @@ public class TurntableDoipProcessor implements DoipProcessor {
 
   private void printRequest(DoipServerRequest doipReq) throws IOException {
     if (LOGGER.isDebugEnabled()) {
+    LOGGER.debug("*************************************************************");
+    LOGGER.debug("Request:");
       LOGGER.debug("Client ID: '{}'", doipReq.getClientId());
       LOGGER.debug("ConnectionClient ID: '{}'", doipReq.getConnectionClientId());
       LOGGER.debug("Operation ID: '{}'", doipReq.getOperationId());
@@ -772,23 +762,20 @@ public class TurntableDoipProcessor implements DoipProcessor {
       if (doipReq.getAuthentication() != null) {
         LOGGER.debug("Authentication: '{}'", doipReq.getAuthentication().toString());
       }
-      InDoipMessage input = doipReq.getInput();
-      Iterator<InDoipSegment> iterator = input.iterator();
-      while (iterator.hasNext()) {
-        InDoipSegment next = iterator.next();
-        LOGGER.debug("is JSON: '{}'", next.isJson());
-        if (next.isJson()) {
-          LOGGER.debug("JSON: '{}'", next.getJson().toString());
-        } else {
-          LOGGER.debug("Inputstream: '{}'", new String(next.getInputStream().readAllBytes()));
+      JsonObject attributes = doipReq.getAttributes();
+      if (attributes != null) {
+            LOGGER.debug("*************************************************************");
+
+          LOGGER.debug("Attributes:");
+        for (Entry<String, JsonElement> attribute : attributes.entrySet()) {
+          LOGGER.debug("'{}' : '{}'", attribute.getKey(), attribute.getValue().toString());
         }
       }
-
     }
   }
 
   private void printResponse(DoipServerResponse doipResp) throws IOException {
-    
+
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("Cannot serialize DoipServerResponse!?");
     }
