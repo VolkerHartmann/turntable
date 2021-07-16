@@ -331,8 +331,9 @@ public class TurntableDoipProcessor implements DoipProcessor {
     if (!InDoipMessageUtil.isEmpty(req.getInput())) {
       throw new DoipException(DoipConstants.STATUS_BAD_REQUEST, "No input found in request.");
     }
-    String targetId = req.getTargetId();
-    String element = req.getAttributeAsString("element");
+    MockUpProcessor.retrieve(req, resp);
+//    String targetId = req.getTargetId();
+//    String element = req.getAttributeAsString("element");
 //    boolean includeElementData = element == null && DOIPUtils.getBooleanAttributeFromRequest(req, "includeElementData");
 //    LOGGER.debug("Retrieving targetId {}, element {}, including element data: {}.", targetId, (element != null) ? element : "<not provided>", includeElementData);
 //
