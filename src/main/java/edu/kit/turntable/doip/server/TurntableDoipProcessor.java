@@ -408,37 +408,9 @@ public class TurntableDoipProcessor implements DoipProcessor {
     printRequest(req);
     //check authentication if required
     String targetId = req.getTargetId();
-//    LOGGER.debug("Updating targetId {}. Obtaining DataResource from input message.", targetId);
-//    DataResource resource = dataResourceFromSegments(req.getInput());
-//
-//    LOGGER.debug("DataResource successfully obtained. Performin update using repository client.");
-//    DataResource updatedResource = SimpleRepositoryClient.create(repoBaseUri, authenticate(req)).updateResource(resource);
-//    LOGGER.debug("Update finished. Checking for content information to update.");
-//    if(!resource.getAssociatedContentInformation().isEmpty()){
-//      //update content
-//      LOGGER.debug("{} content element(s) found in resource. Starting upload.", resource.getAssociatedContentInformation().size());
-//      for(ContentInformation content : resource.getAssociatedContentInformation()){
-//        LOGGER.debug("Uploading content element to {}.", content.getRelativePath());
-//        int status = SimpleRepositoryClient.create(repoBaseUri, authenticate(req)).uploadData(targetId, content.getRelativePath(), content.getContentStream(), true).value();
-//        switch(status){
-//          case 200:
-//          case 201: {
-//            LOGGER.debug("Upload of content {} succeeded with status {}.", content.getRelativePath(), status);
-//            break;
-//          }
-//          default:
-//            LOGGER.error("Upload returned with status {}.", status);
-//      throw new DoipException(DoipConstants.STATUS_NOT_FOUND, "Content upload failed for relative path " + content.getRelativePath());
-//        }
-//      }
-//    }
-    LOGGER.debug("Reading complete content from resource.");
-//    ContentInformation[] contentInformation = SimpleRepositoryClient.create(repoBaseUri, authenticate(req)).getContentInformation(targetId, "/");
-//    LOGGER.debug("Building DigitalObject for output message.");
-//    DigitalObject obj = DOIPUtils.ofDataResource(updatedResource, contentInformation, false);
-//    JsonElement dobjJson = GsonUtility.getGson().toJsonTree(obj);
-//    LOGGER.debug("Writing DigitalObject to output message.");
-//    resp.writeCompactOutput(dobjJson);
+    LOGGER.debug("Updating targetId {}. Obtaining DataResource from input message.", targetId);
+    MockUpProcessor.update(req, resp);
+    printResponse(resp);
     LOGGER.debug("Returning from update().");
   }
 
