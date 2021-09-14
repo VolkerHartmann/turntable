@@ -201,7 +201,6 @@ public class MockUpProcessor {
     LOGGER.debug("Finished retrieve!");
   }
 
-
   /**
    * Update existing DigitalObject.
    */
@@ -210,35 +209,9 @@ public class MockUpProcessor {
     InDoipSegment firstSegment = InDoipMessageUtil.getFirstSegment(req.getInput());
     LOGGER.trace("Deserializing digital object from first segment.");
     DigitalObject digitalObject = GsonUtility.getGson().fromJson(firstSegment.getJson(), DigitalObject.class);
-    Identifier identifier = new Identifier();
-    identifier.setIdentifier(PREFIX_REPO + "/" + UUID.randomUUID());
-    identifier.setIdentifierType("Handle");
-    Iterator<InDoipSegment> iterator = req.getInput().iterator();
-    while (iterator.hasNext()) {
-      LOGGER.debug("*************************************************************");
-      LOGGER.debug("Next Segment.....");
-      LOGGER.debug("*************************************************************");
-      InDoipSegment segment = iterator.next();
-      if (segment.isJson() == false) {
-        resp.setStatus(DoipConstants.STATUS_BAD_REQUEST);
-        resp.setAttribute(DoipConstants.MESSAGE_ATT, "Segment should be a JSON!");
-      } else {
-        // Read id of element
-        LOGGER.debug("Content: '{}'", segment.getJson().toString());
-        String id = segment.getJson().getAsJsonObject().get("id").getAsString();
-        LOGGER.debug("ID: '{}'", id);
-        Path path = Paths.get(identifier.getIdentifier(), id).toAbsolutePath();
-        Files.createDirectories(path.getParent());
-        LOGGER.debug("Path: '{}'", path.toString());
-        // Read stream of element
-        segment = iterator.next();
-        byte[] document = segment.getInputStream().readAllBytes();
-        Path path2 = Files.write(path,
-                document, StandardOpenOption.CREATE);
-      }
-    }
 
-    // Get Datacite metadata
+    Identifier identifier = null;
+    // Get Datacite metadata and update
     JsonObject attributes = digitalObject.attributes;
     if (attributes != null) {
       JsonElement dataciteAttr = attributes.get(DoipUtils.ATTR_DATACITE);
@@ -247,23 +220,23 @@ public class MockUpProcessor {
         System.out.println("***" + dataciteAttr.getAsString() + "+++");
         Datacite43Schema datacite = GsonUtility.getGson().fromJson(dataciteAttr.getAsString(), Datacite43Schema.class);
         // Update DataCite
-        datacite.getIdentifiers().add(identifier);
-        Date creationDate = new Date();
-        creationDate.setDate(sdf.format(new java.util.Date()));
-        creationDate.setDateInformation("Date of creation");
-        creationDate.setDateType(Date.DateType.CREATED);
-        datacite.getDates().add(creationDate);
+        identifier = datacite.getIdentifiers().iterator().next();
+        boolean setUpdateDate = true;
         java.util.Date now = new java.util.Date();
-        Date lastUpdate = new Date();
-        lastUpdate.setDate(sdf.format(now));
-        lastUpdate.setDateInformation("Date of last update");
-        lastUpdate.setDateType(Date.DateType.UPDATED);
-        datacite.getDates().add(lastUpdate);
-        datacite.setPublicationYear(syf.format(now));
-        Creator creator = new Creator();
-        creator.setName("SELF");
-        creator.setNameType(Creator.NameType.PERSONAL);
-        datacite.getCreators().add(creator);
+        for (Date dates : datacite.getDates()) {
+          if (dates.getDateType() == Date.DateType.UPDATED) {
+            setUpdateDate = false;
+            dates.setDate(sdf.format(now));
+            break;
+          }
+        }
+        if (setUpdateDate) {
+          Date lastUpdate = new Date();
+          lastUpdate.setDate(sdf.format(now));
+          lastUpdate.setDateInformation("Date of last update");
+          lastUpdate.setDateType(Date.DateType.UPDATED);
+          datacite.getDates().add(lastUpdate);
+        }
         DigitalObject dobj = new DigitalObject();
         dobj.id = datacite.getIdentifiers().iterator().next().getIdentifier();
         if (dobj.attributes == null) {
@@ -289,6 +262,33 @@ public class MockUpProcessor {
       }
     } else {
       LOGGER.error("Attributes are not available!!!!!!!!!!!!!!");
+    }
+//    Identifier identifier = new Identifier();
+//    identifier.setIdentifier(PREFIX_REPO + "/" + UUID.randomUUID());
+//    identifier.setIdentifierType("Handle");
+    Iterator<InDoipSegment> iterator = req.getInput().iterator();
+    while (iterator.hasNext()) {
+      LOGGER.debug("*************************************************************");
+      LOGGER.debug("Next Segment.....");
+      LOGGER.debug("*************************************************************");
+      InDoipSegment segment = iterator.next();
+      if (segment.isJson() == false) {
+        resp.setStatus(DoipConstants.STATUS_BAD_REQUEST);
+        resp.setAttribute(DoipConstants.MESSAGE_ATT, "Segment should be a JSON!");
+      } else {
+        // Read id of element
+        LOGGER.debug("Content: '{}'", segment.getJson().toString());
+        String id = segment.getJson().getAsJsonObject().get("id").getAsString();
+        LOGGER.debug("ID: '{}'", id);
+        Path path = Paths.get(identifier.getIdentifier(), id).toAbsolutePath();
+        Files.createDirectories(path.getParent());
+        LOGGER.debug("Path: '{}'", path.toString());
+        // Read stream of element
+        segment = iterator.next();
+        byte[] document = segment.getInputStream().readAllBytes();
+        Path path2 = Files.write(path,
+                document, StandardOpenOption.CREATE);
+      }
     }
   }
 
