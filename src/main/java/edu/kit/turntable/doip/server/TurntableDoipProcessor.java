@@ -120,6 +120,9 @@ public class TurntableDoipProcessor implements DoipProcessor {
         case DoipConstants.OP_SEARCH:
           search(req, resp);
           break;
+        case ExtendedOperations.OP_VALIDATE:
+          validate(req, resp);
+          break;
         default:
           resp.setStatus(DoipConstants.STATUS_DECLINED);
           resp.setAttribute(DoipConstants.MESSAGE_ATT, "Operation not supported");
@@ -312,6 +315,20 @@ public class TurntableDoipProcessor implements DoipProcessor {
 //      writer.endObject();
 //      LOGGER.debug("Returning from search().");
 //    }
+  }
+
+  /**
+   * Validate provided document with referenced schema.
+   */
+  private void validate(DoipServerRequest req, DoipServerResponse resp) throws DoipException, IOException {
+    LOGGER.debug("Calling validate().");
+    if (!InDoipMessageUtil.isEmpty(req.getInput())) {
+      throw new DoipException(DoipConstants.STATUS_BAD_REQUEST, "No input found in request.");
+    }
+    printRequest(req);
+    MockUpProcessor.validate(req, resp);
+    printResponse(resp);
+    LOGGER.debug("Returning from validate().");
   }
 
   /**

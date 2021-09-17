@@ -147,6 +147,82 @@ public class MockUpProcessor {
     }
   }
 
+
+  /**
+   * Create a new DigitalObject.
+   */
+  public static void validate(DoipServerRequest req, DoipServerResponse resp) throws DoipException, IOException {
+    LOGGER.debug("Repo: Validate...");
+    InDoipSegment firstSegment = InDoipMessageUtil.getFirstSegment(req.getInput());
+    LOGGER.trace("Deserializing digital object from first segment.");
+    DigitalObject digitalObject = GsonUtility.getGson().fromJson(firstSegment.getJson(), DigitalObject.class);
+   ToDo...
+    Identifier identifier = null;
+    // Get Datacite metadata and update
+    JsonObject attributes = digitalObject.attributes;
+    if (attributes != null) {
+      JsonElement dataciteAttr = attributes.get(DoipUtils.ATTR_DATACITE);
+      if (dataciteAttr != null) {
+        LOGGER.debug("Attribute: '{}': '{}'", DoipUtils.ATTR_DATACITE, dataciteAttr);
+        System.out.println("***" + dataciteAttr.getAsString() + "+++");
+        Datacite43Schema datacite = GsonUtility.getGson().fromJson(dataciteAttr.getAsString(), Datacite43Schema.class);
+        // Update DataCite
+        identifier = datacite.getIdentifiers().iterator().next();
+        DigitalObject dobj = new DigitalObject();
+        dobj.id = datacite.getIdentifiers().iterator().next().getIdentifier();
+        if (dobj.attributes == null) {
+          dobj.attributes = new JsonObject();
+        }
+        dobj.attributes.add(DoipUtils.ATTR_DATACITE, GsonUtility.getGson().toJsonTree(datacite));
+        dobj.type = DoipUtils.TYPE_DO;
+        dobj.elements = digitalObject.elements;
+        localRepo.put(identifier.getIdentifier(), dobj);
+//        Element element = new Element();
+//        element.id = "dummy";
+//        element.type = "application/txt";
+//        element.in = new ByteArrayInputStream("Dummy".getBytes());
+//        dobj.elements.add(element);
+        JsonElement dobjJson = GsonUtility.getGson().toJsonTree(dobj);
+        LOGGER.trace("Writing DigitalObject to output message.");
+        resp.writeCompactOutput(dobjJson);
+        resp.setStatus(DoipConstants.STATUS_OK);
+        resp.setAttribute(DoipConstants.MESSAGE_ATT, "Successfully created!");
+        LOGGER.trace("Returning from create().");
+      } else {
+        LOGGER.error("Datacite not found!!!!!!!!!!!!!!");
+      }
+    } else {
+      LOGGER.error("Attributes are not available!!!!!!!!!!!!!!");
+    }
+//    Identifier identifier = new Identifier();
+//    identifier.setIdentifier(PREFIX_REPO + "/" + UUID.randomUUID());
+//    identifier.setIdentifierType("Handle");
+    Iterator<InDoipSegment> iterator = req.getInput().iterator();
+    while (iterator.hasNext()) {
+      LOGGER.debug("*************************************************************");
+      LOGGER.debug("Next Segment.....");
+      LOGGER.debug("*************************************************************");
+      InDoipSegment segment = iterator.next();
+      if (segment.isJson() == false) {
+        resp.setStatus(DoipConstants.STATUS_BAD_REQUEST);
+        resp.setAttribute(DoipConstants.MESSAGE_ATT, "Segment should be a JSON!");
+      } else {
+        // Read id of element
+        LOGGER.debug("Content: '{}'", segment.getJson().toString());
+        String id = segment.getJson().getAsJsonObject().get("id").getAsString();
+        LOGGER.debug("ID: '{}'", id);
+        Path path = Paths.get(identifier.getIdentifier(), id).toAbsolutePath();
+        Files.createDirectories(path.getParent());
+        LOGGER.debug("Path: '{}'", path.toString());
+        // Read stream of element
+        segment = iterator.next();
+        byte[] document = segment.getInputStream().readAllBytes();
+        Path path2 = Files.write(path,
+                document, StandardOpenOption.CREATE);
+      }
+    }
+  }
+
   /**
    * Access DigitalObject.
    */
