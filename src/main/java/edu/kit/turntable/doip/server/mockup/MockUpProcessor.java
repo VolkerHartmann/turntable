@@ -156,7 +156,7 @@ public class MockUpProcessor {
     InDoipSegment firstSegment = InDoipMessageUtil.getFirstSegment(req.getInput());
     LOGGER.trace("Deserializing digital object from first segment.");
     DigitalObject digitalObject = GsonUtility.getGson().fromJson(firstSegment.getJson(), DigitalObject.class);
-   ToDo...
+//   ToDo...
     Identifier identifier = null;
     // Get Datacite metadata and update
     JsonObject attributes = digitalObject.attributes;

@@ -15,7 +15,6 @@
  */
 package edu.kit.turntable.doip.server;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -57,12 +56,12 @@ public class Turntable implements DoipProcessor {
     config.listenAddress = args[1];
     config.port = Integer.parseInt(args[2]);
     config.processorClass = Turntable.class.getName();
-    config.processorClass="edu.kit.turntable.doip.server.TurntableDoipProcessor";
+    config.processorClass="edu.kit.turntable.doip.server.TurntableDoipProcessor4Mapping";
     config.processorConfig = convertFileToJSON("src/main/resources/configDOIP.json");
     DoipServerConfig.TlsConfig tlsConfig = new DoipServerConfig.TlsConfig();
     tlsConfig.id = args[0];
     config.tlsConfig = tlsConfig;
-    TurntableDoipProcessor tdp = new TurntableDoipProcessor();
+    TurntableDoipProcessor4Mapping tdp = new TurntableDoipProcessor4Mapping();
     tdp.init(config.processorConfig);
     DoipServer server = new DoipServer(config);
     server.init();
@@ -72,7 +71,7 @@ public class Turntable implements DoipProcessor {
     LOGGER.info("ID: '{}'", tlsConfig.id);
     LOGGER.info("Address: '{}'", config.listenAddress);
     LOGGER.info("Port: '{}'", config.port);
-    LOGGER.debug("TRACE is on");
+    LOGGER.trace("TRACE is on");
     LOGGER.debug("DEBUG is on");
     LOGGER.info("INFO is on");
     LOGGER.warn("WARN is on");

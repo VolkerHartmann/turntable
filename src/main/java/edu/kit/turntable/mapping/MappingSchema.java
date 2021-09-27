@@ -28,6 +28,16 @@ public class MappingSchema {
     @Expose
     private String targetId = "";
     /**
+     * Baseurl
+     * <p>
+     * 
+     * (Required)
+     * 
+     */
+    @SerializedName("BaseUrl")
+    @Expose
+    private String baseUrl = "";
+    /**
      * Registeredmimetypes
      * <p>
      * 
@@ -68,6 +78,28 @@ public class MappingSchema {
      */
     public void setTargetId(String targetId) {
         this.targetId = targetId;
+    }
+
+    /**
+     * Baseurl
+     * <p>
+     * 
+     * (Required)
+     * 
+     */
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    /**
+     * Baseurl
+     * <p>
+     * 
+     * (Required)
+     * 
+     */
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     /**
@@ -122,6 +154,10 @@ public class MappingSchema {
         sb.append('=');
         sb.append(((this.targetId == null)?"<null>":this.targetId));
         sb.append(',');
+        sb.append("baseUrl");
+        sb.append('=');
+        sb.append(((this.baseUrl == null)?"<null>":this.baseUrl));
+        sb.append(',');
         sb.append("registeredMimeTypes");
         sb.append('=');
         sb.append(((this.registeredMimeTypes == null)?"<null>":this.registeredMimeTypes));
@@ -142,6 +178,7 @@ public class MappingSchema {
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.registeredMimeTypes == null)? 0 :this.registeredMimeTypes.hashCode()));
+        result = ((result* 31)+((this.baseUrl == null)? 0 :this.baseUrl.hashCode()));
         result = ((result* 31)+((this.targetId == null)? 0 :this.targetId.hashCode()));
         result = ((result* 31)+((this.methods == null)? 0 :this.methods.hashCode()));
         return result;
@@ -156,7 +193,7 @@ public class MappingSchema {
             return false;
         }
         MappingSchema rhs = ((MappingSchema) other);
-        return ((((this.registeredMimeTypes == rhs.registeredMimeTypes)||((this.registeredMimeTypes!= null)&&this.registeredMimeTypes.equals(rhs.registeredMimeTypes)))&&((this.targetId == rhs.targetId)||((this.targetId!= null)&&this.targetId.equals(rhs.targetId))))&&((this.methods == rhs.methods)||((this.methods!= null)&&this.methods.equals(rhs.methods))));
+        return (((((this.registeredMimeTypes == rhs.registeredMimeTypes)||((this.registeredMimeTypes!= null)&&this.registeredMimeTypes.equals(rhs.registeredMimeTypes)))&&((this.baseUrl == rhs.baseUrl)||((this.baseUrl!= null)&&this.baseUrl.equals(rhs.baseUrl))))&&((this.targetId == rhs.targetId)||((this.targetId!= null)&&this.targetId.equals(rhs.targetId))))&&((this.methods == rhs.methods)||((this.methods!= null)&&this.methods.equals(rhs.methods))));
     }
 
 }
