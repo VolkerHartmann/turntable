@@ -27,7 +27,6 @@ import edu.kit.turntable.mapping.MappingSchema;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +36,6 @@ import java.nio.file.Paths;
 import java.security.PublicKey;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
 import java.util.stream.Stream;
 import net.dona.doip.DoipConstants;
 import net.dona.doip.InDoipMessage;
@@ -113,7 +111,7 @@ public class TurntableDoipProcessor4Mapping implements DoipProcessor {
   @Override
   public void process(DoipServerRequest req, DoipServerResponse resp) throws IOException {
     LOGGER.debug("Processing DOIP request.");
-
+    printRequest(req);
     try {
       if (serviceId.equals(req.getTargetId())) {
         processServiceRequest(req, resp);
@@ -824,8 +822,8 @@ public class TurntableDoipProcessor4Mapping implements DoipProcessor {
           LOGGER.debug("Mapping: '{}'", mappingSchema.toString());
           if (mappingSchema.getTargetId() != null) { 
             // add mapping to map
-            allMappings.add(mappingSchema.getTargetId(), mappingSchema);
-            allMappings.add(mappingSchema.getBaseURL(), mappingSchema);
+//            allMappings.add(mappingSchema.getTargetId(), mappingSchema);
+//            allMappings.add(mappingSchema.getBaseURL(), mappingSchema);
             
           }
         } catch (IOException ex) {
